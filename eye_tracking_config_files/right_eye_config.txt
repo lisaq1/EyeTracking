@@ -1,0 +1,54 @@
+// INPUT IMAGE
+imagePath = "../test_images/checkerboard.png"
+
+// EYE PARAMETERS
+eyeFocalDist = 250
+eyeFocalLength = 20
+pupilDiameter = 6
+imageDist = 20
+
+// DISPLAY PARAMETERS
+// A small high res patch
+displayPreset = "custom"
+displayPixelWidth = 750
+displayPixelHeight = 1334
+displayPPI = 326
+
+// HARDWARE PARAMETERS
+hardwareType = "pinhole"
+hardwareDensity = 5
+hardwareDepth = 6
+hardwarePinholeDiameter = 0.1
+
+// DISPLAY POSE
+displayOriginX = 0
+displayOriginY = 0
+displayOriginZ = 400
+displayDist = 400
+
+displayRoll = 0
+displayYaw = 0.32
+displayPitch = -0.02
+
+// RETINA PARAMETERS
+margin = 10
+retinaNumPixelsWidth = 1300
+retinaNumPixelsHeight = 1300
+retinaWidth = 10.0
+retinaHeight = 10.0
+
+// --- Sampling ---
+// Overall we take <simulatorSampleRate> samples for each retina pixel while simulating and
+// <nearbyPinholes> * <samplesPerPixel> * <samplesPerPinhole> samples for each pixel during prefiltering
+// defaults are 64 for simulatorSampleRate, 1 for nearbyPinholes, 1 for samplesPerPixel, 1 for samplesPerPinhole
+// sampling scheme codes: 0=point to point, 1=point to many, 2=many to many, 3=area to area
+simulatorSampleRate = 256
+maxTolerance = 0.01
+nearbyPinholes = 9
+scheme = 2
+samplesPerPixel = 4
+samplesPerPinhole = 4
+
+// TEST SUITE
+testSuite = false
+testName = "checkerboard_1"

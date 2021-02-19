@@ -1,3 +1,7 @@
+#THIS IS FOR LIVE TRACKING
+#HAVE NOT ADDED THE .TXT CONFIG FILES
+#FIRST WORKING WITH ONE FRAME SIMULATION
+
 from __future__ import print_function
 import cv2 as cv
 import math
@@ -6,6 +10,7 @@ import argparse
 #constants used in gaze angle calculations
 #~3.80 pixels to 1 mm
 pixel_conversion = 3.8
+ave_eye_size = 30
 #ideal distance for computer screen users
 z_distance = 400
 
@@ -55,13 +60,14 @@ def detectAndDisplay(frame):
 					right_eye = (x_pos, y_pos)
 				
 				if left_eye != None and right_eye != None:
-					pupilliary_distance = get_pupil_distance(left_eye, right_eye)
+					pupilliary_distance = get_pupil_distance(left_eye, right_eye, ew)
 					cv.line(frame, left_eye, right_eye, (0, 0, 255), 2)
 					left_pitch, left_yaw = get_pitch_yaw_angle(left_eye, height, width)
 					right_pitch, right_yaw = get_pitch_yaw_angle(right_eye, height, width)
 			
 					print("left_eye: (", math.degrees(left_pitch), math.degrees(left_yaw), ")")
 					print("right_eye: (", math.degrees(right_pitch), math.degrees(right_yaw), ")")
+					print(pupilliary_distance)
 
 	cv.imshow('Capture - Face detection', frame)
 
@@ -83,8 +89,11 @@ def get_iris_region(eyeROI, face_x, face_y, eye_x, eye_y, frame):
 	return -1, -1
 	
 
-def get_pupil_distance(left, right):
-	return right[0] - left[0]
+def get_pupil_distance(left, right, eye_width):
+	pixel_dist = right[0] - left[0]
+	screen_dist = pixel_dist / pixel_conversion
+	ratio = eye_width / pixel_conversion / ave_eye_size
+	return screen_dist / ratio
 
 
 def get_pitch_yaw_angle(eye, screen_height, screen_width):
